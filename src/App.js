@@ -11,27 +11,36 @@ class Count extends React.Component {
     };
   }
 
-  handlePlusClick = (btn) => {
-    if (this.state.count < 100) { this.setState({ count: this.state.count += btn }) }
-    else {
-      this.setState({ count1: this.state.count1 += btn })
-    };
-
-  handleDownClick = (btn2) => {
-      if (this.state.count < 100) { this.setState({ count: this.state.count -= btn2 }) }
-      else (this.setState({ count1: this.state.count1 -= btn2 }))
-
-
-  };
-
-    render() {
-      return (
-        <>
-          <h1>Counter</h1>
-          <Counter count={this.state.count} count1={this.state.count1} substract={this.handleDownClick} increment={this.handlePlusClick} />
-        </>
-      )
+  firstButtonPlus = () => {
+    if (this.state.count < 100) { this.setState({ count: this.state.count + 1 }) }
+    if (this.state.count === this.state.count1) {
+      this.setState({ count1: this.state.count1 + 1 })
     }
   }
+  firstButtonDown = () => {
+    if (this.state.count > 0) { this.setState({ count: this.state.count - 1 }) }
+  }
 
+  secondButtonPlus = () => {
+    if (this.state.count1 < 100) { this.setState({ count1: this.state.count1 + 1 }) }
+  }
+
+  secondButtonDown = () => {
+    if (this.state.count1 > 0) { 
+      this.setState({ count1: this.state.count1 - 1 }) 
+    if (this.state.count === this.state.count1) { this.setState({ count: this.state.count - 1 }) }
+  }}
+
+
+
+  render() {
+    return (
+      <>
+        <h1>Counter</h1>
+        <Counter count={this.state.count} substract={this.firstButtonDown} increment={this.firstButtonPlus} />
+        <Counter count1={this.state.count1} increment={this.secondButtonPlus} substract={this.secondButtonDown} />
+      </>
+    )
+  }
+}
 export default Count
